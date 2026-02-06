@@ -31,28 +31,32 @@ document.addEventListener('DOMContentLoaded', () => {
     noBtn.addEventListener('mouseover', () => {
         const btnRect = noBtn.getBoundingClientRect();
 
-        // Calculate maximum allowed coordinates
-        const maxX = window.innerWidth - btnRect.width;
-        const maxY = window.innerHeight - btnRect.height;
+        // Calculate maximum allowed coordinates with margin for "perfection"
+        const margin = 20;
+        const maxX = window.innerWidth - btnRect.width - margin;
+        const maxY = window.innerHeight - btnRect.height - margin;
 
-        // Generate random position within viewport
-        let newX = Math.random() * maxX;
-        let newY = Math.random() * maxY;
+        // Generate random position within safe viewport
+        let newX = Math.max(margin, Math.random() * maxX);
+        let newY = Math.max(margin, Math.random() * maxY);
 
-        // Ensure the button stays somewhat visible but moves away
+        // Ensure the button stays fixed and prominently visible during evasion
         noBtn.style.position = 'fixed';
         noBtn.style.left = `${newX}px`;
         noBtn.style.top = `${newY}px`;
+        noBtn.style.zIndex = '1000';
 
-        // Add a little wobble
+        // Add a little wobble for character
         noBtn.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
 
         // Grow the Yes button
-        yesScale += 0.15;
+        yesScale += 0.2;
         yesBtn.style.transform = `scale(${yesScale})`;
 
-        // Change text based on size
-        if (yesScale > 2) {
+        // Change text based on size to increase urgency
+        if (yesScale > 3) {
+            yesBtn.innerText = "OKAY NOW! 🥰";
+        } else if (yesScale > 2) {
             yesBtn.innerText = "YES PLEASE! 🥰";
         } else if (yesScale > 1.5) {
             yesBtn.innerText = "SAY YES! 🥺";
@@ -69,6 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             mainContent.classList.add('hidden');
             successScreen.classList.remove('hidden');
+
+            // Scroll to top for perfect centering
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
             // Confetti explosion (Grand version)
             const duration = 10 * 1000;

@@ -15,14 +15,16 @@
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
-    background: #fff5f5;
-    height: 100vh;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    background-color: #ffffff;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    color: var(--text-color);
+    padding: 40px 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Background Animation */
@@ -69,10 +71,12 @@ body {
 
 /* Container & Card */
 .container {
+    perspective: 1000px;
     width: 100%;
     max-width: 500px;
-    padding: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 10;
 }
 
@@ -194,17 +198,18 @@ h1 span {
 
 .carousel-item {
     scroll-snap-align: center;
-    min-width: 250px;
+    min-width: 200px;
     background: var(--glass-bg);
     padding: 20px;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.5);
     text-align: center;
+    flex-shrink: 0;
 }
 
 .timeline {
     position: relative;
-    max-width: 400px;
+    width: 100%;
     margin: 0 auto;
     padding: 20px 0;
 }
@@ -221,11 +226,12 @@ h1 span {
 }
 
 .timeline-item {
-    padding: 10px 40px;
+    padding: 10px 0 10px 50px;
     position: relative;
     background-color: inherit;
     width: 100%;
     text-align: left;
+    box-sizing: border-box;
 }
 
 .timeline-item::after {
@@ -277,7 +283,9 @@ h1 span {
 /* Responsive */
 @media (max-width: 480px) {
     h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
+        line-height: 1.2;
+        margin-bottom: 10px;
     }
 
     .glass-card {
