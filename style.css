@@ -1,10 +1,11 @@
 :root {
     --primary-gradient: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-    --secondary-gradient: linear-gradient(135deg, #a8e6cf, #dcedc1);
+    --secondary-gradient: linear-gradient(135deg, #6c5ce7, #a29bfe);
     --accent-color: #ff3366;
     --text-color: #2d3436;
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    --inner-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 * {
@@ -32,9 +33,10 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background: radial-gradient(circle at 20% 30%, #ffdada 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, #ffe4e4 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, #fff5f5 0%, #fff 100%);
+    background: radial-gradient(circle at 10% 20%, rgba(255, 107, 107, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(108, 92, 231, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, #fff5f5 0%, #ffffff 100%);
+    overflow: hidden;
 }
 
 .heart {
@@ -46,10 +48,23 @@ body {
 }
 
 @keyframes float {
-    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+    }
 }
 
 /* Container & Card */
@@ -76,7 +91,7 @@ body {
     margin-bottom: 25px;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
 .floating-image {
@@ -86,8 +101,15 @@ body {
 }
 
 @keyframes softFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 h1 {
@@ -128,7 +150,7 @@ h1 span {
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     font-family: 'Outfit', sans-serif;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .btn.primary {
@@ -146,6 +168,77 @@ h1 span {
     color: #2d3436;
     position: relative;
     z-index: 5;
+    transition: all 0.2s ease;
+}
+
+/* New Section Styles */
+.sections-container {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 10px 0;
+    scrollbar-width: none;
+}
+
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-item {
+    scroll-snap-align: center;
+    min-width: 250px;
+    background: var(--glass-bg);
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.timeline {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background: var(--accent-color);
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    margin-left: -1px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 100%;
+    text-align: left;
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 12px;
+    background-color: white;
+    border: 3px solid var(--accent-color);
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
 }
 
 /* Success Screen */
@@ -161,8 +254,15 @@ h1 span {
 }
 
 @keyframes scaleIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .success-image {
@@ -176,7 +276,16 @@ h1 span {
 
 /* Responsive */
 @media (max-width: 480px) {
-    h1 { font-size: 2rem; }
-    .glass-card { padding: 30px 20px; }
-    .btn { padding: 12px 25px; font-size: 1rem; }
+    h1 {
+        font-size: 2rem;
+    }
+
+    .glass-card {
+        padding: 30px 20px;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
 }
